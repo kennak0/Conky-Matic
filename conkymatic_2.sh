@@ -675,6 +675,12 @@ COLOR16=$(echo "$COLOR16" | sed 's/.*[[:space:]]\(#[a-zA-Z0-9]\+\)[[:space:]].*/
 # Truncate hex value at 7 characters.
 COLARRAY[16]="${COLOR16:0:7}"
 
+ALPARRAY[1]="0"
+ALPARRAY[2]="30"
+ALPARRAY[3]="80"
+ALPARRAY[4]="160"
+ALPARRAY[5]="255"
+
 # Delete micro image
 rm ${MICROIMG}
 
@@ -738,6 +744,9 @@ COLOR_DATA="${COLARRAY[${RND}]}"
 # Color text. Colors 8-16
 RND=$(shuf -i 8-16 -n 1)
 COLOR_TEXT="${COLARRAY[${RND}]}"
+
+RND=$(shuf -i 1-5 -n 1)
+COLOR_ALPHA_BACKGROUND="${ALPARRAY[${RND}]}"
 
 # COPY SVG ICONS TO TMP/DIRECTORY  ------------------------------------------------------
 
@@ -850,52 +859,53 @@ COLOR_TEXT="${COLARRAY[${RND}]}"
 #echo " Inserting color values into the conky template"
 
 # Before replacing vars make a copy of the template. This template will replace
-# .conkyrc once the variable swapping is done
-cp $TEMPLATE_SELECTION $CACHE_DIRECTORY/conkyrc
+# conky.conf once the variable swapping is done
+cp $TEMPLATE_SELECTION $CACHE_DIRECTORY/conky.conf
 
 # Colors
-sed -i -e "s|_VAR:COLOR_BACKGROUND_|${COLOR_BACKGROUND}|g" "${CACHE_DIRECTORY}/conkyrc"
-sed -i -e "s|_VAR:COLOR_HR_|${COLOR_HR}|g" "${CACHE_DIRECTORY}/conkyrc"
-sed -i -e "s|_VAR:COLOR_BARS_NORM_|${COLOR_BARS_NORM}|g" "${CACHE_DIRECTORY}/conkyrc"
-sed -i -e "s|_VAR:COLOR_BARS_WARN_|${COLOR_BARS_WARN}|g" "${CACHE_DIRECTORY}/conkyrc"
-sed -i -e "s|_VAR:COLOR_BORDER_|${COLOR_BORDER}|g" "${CACHE_DIRECTORY}/conkyrc"
-sed -i -e "s|_VAR:COLOR_TIME_|${COLOR_TIME}|g" "${CACHE_DIRECTORY}/conkyrc"
-sed -i -e "s|_VAR:COLOR_DATE_|${COLOR_DATE}|g" "${CACHE_DIRECTORY}/conkyrc"
-#sed -i -e "s|_VAR:COLOR_WEATHER_|${COLOR_WEATHER}|g" "${CACHE_DIRECTORY}/conkyrc"
-sed -i -e "s|_VAR:COLOR_HEADING_|${COLOR_HEADING}|g" "${CACHE_DIRECTORY}/conkyrc"
-sed -i -e "s|_VAR:COLOR_SUBHEADING_|${COLOR_SUBHEADING}|g" "${CACHE_DIRECTORY}/conkyrc"
-sed -i -e "s|_VAR:COLOR_DATA_|${COLOR_DATA}|g" "${CACHE_DIRECTORY}/conkyrc"
-sed -i -e "s|_VAR:COLOR_TEXT_|${COLOR_TEXT}|g" "${CACHE_DIRECTORY}/conkyrc"
+sed -i -e "s|_VAR:COLOR_BACKGROUND_|${COLOR_BACKGROUND}|g" "${CACHE_DIRECTORY}/conky.conf"
+sed -i -e "s|_VAR:COLOR_HR_|${COLOR_HR}|g" "${CACHE_DIRECTORY}/conky.conf"
+sed -i -e "s|_VAR:COLOR_BARS_NORM_|${COLOR_BARS_NORM}|g" "${CACHE_DIRECTORY}/conky.conf"
+sed -i -e "s|_VAR:COLOR_BARS_WARN_|${COLOR_BARS_WARN}|g" "${CACHE_DIRECTORY}/conky.conf"
+sed -i -e "s|_VAR:COLOR_BORDER_|${COLOR_BORDER}|g" "${CACHE_DIRECTORY}/conky.conf"
+sed -i -e "s|_VAR:COLOR_TIME_|${COLOR_TIME}|g" "${CACHE_DIRECTORY}/conky.conf"
+sed -i -e "s|_VAR:COLOR_DATE_|${COLOR_DATE}|g" "${CACHE_DIRECTORY}/conky.conf"
+#sed -i -e "s|_VAR:COLOR_WEATHER_|${COLOR_WEATHER}|g" "${CACHE_DIRECTORY}/conky.conf"
+sed -i -e "s|_VAR:COLOR_HEADING_|${COLOR_HEADING}|g" "${CACHE_DIRECTORY}/conky.conf"
+sed -i -e "s|_VAR:COLOR_SUBHEADING_|${COLOR_SUBHEADING}|g" "${CACHE_DIRECTORY}/conky.conf"
+sed -i -e "s|_VAR:COLOR_DATA_|${COLOR_DATA}|g" "${CACHE_DIRECTORY}/conky.conf"
+sed -i -e "s|_VAR:COLOR_TEXT_|${COLOR_TEXT}|g" "${CACHE_DIRECTORY}/conky.conf"
+sed -i -e "s|_VAR:COLOR_ALPHA_BACKGROUND_|${COLOR_ALPHA_BACKGROUND}|g" "${CACHE_DIRECTORY}/conky.conf"
 
 # API URL
 # Escape ampersands before running sed
 #WEATHER_API_URL=${WEATHER_API_URL//&/\\&}
-#sed -i -e "s|_VAR:API_URL|${WEATHER_API_URL}|g" "${CACHE_DIRECTORY}/conkyrc"
+#sed -i -e "s|_VAR:API_URL|${WEATHER_API_URL}|g" "${CACHE_DIRECTORY}/conky.conf"
 
 # Path to JSON file; /path/to/Cache/weather.json
-#sed -i -e "s|_VAR:JSON_WEATHER_FILEPATH_|${CACHE_DIRECTORY}/${JSON_CACHE_FILE}|g" "${CACHE_DIRECTORY}/conkyrc"
+#sed -i -e "s|_VAR:JSON_WEATHER_FILEPATH_|${CACHE_DIRECTORY}/${JSON_CACHE_FILE}|g" "${CACHE_DIRECTORY}/conky.conf"
 
 # Full path to cache directory - no trailing slash
-sed -i -e "s|_VAR:CACHE_DIRECTORY_|${CACHE_DIRECTORY}|g" "${CACHE_DIRECTORY}/conkyrc"
+sed -i -e "s|_VAR:CACHE_DIRECTORY_|${CACHE_DIRECTORY}|g" "${CACHE_DIRECTORY}/conky.conf"
 
 # Path to PNG-Weather-Icons folder - no trailing slash
-#sed -i -e "s|_VAR:WEATHER_ICONS_DIRECTORY_|${WEATHER_ICONS_PNG_DIRECTORY}|g" "${CACHE_DIRECTORY}/conkyrc"
+#sed -i -e "s|_VAR:WEATHER_ICONS_DIRECTORY_|${WEATHER_ICONS_PNG_DIRECTORY}|g" "${CACHE_DIRECTORY}/conky.conf"
 
 # Full /path/to/colorpalette.png
-sed -i -e "s|_VAR:COLOR_PALETTE_FILEPATH_|${CACHE_DIRECTORY}/${COLOR_PALETTE_IMG}|g" "${CACHE_DIRECTORY}/conkyrc"
+sed -i -e "s|_VAR:COLOR_PALETTE_FILEPATH_|${CACHE_DIRECTORY}/${COLOR_PALETTE_IMG}|g" "${CACHE_DIRECTORY}/conky.conf"
 
 
-# REPLACE CONKYRC FILE AND RELAUNCH -----------------------------------------------------
+# REPLACE conky.conf FILE AND RELAUNCH -----------------------------------------------------
 
 #echo
 #echo " Shutting down Conky"
 pkill conky
 
 #echo
-#echo " Exporting new .conkyrc file"
+#echo " Exporting new conky.conf file"
 
-# Copy conkyrc file to its proper location
-cp $CACHE_DIRECTORY/conkyrc ~/.conkyrc
+# Copy conky.conf file to its proper location
+cp $CACHE_DIRECTORY/conky.conf ~/.config/conky/conky.conf
 
 # Launch conky
 #echo
@@ -903,7 +913,7 @@ cp $CACHE_DIRECTORY/conkyrc ~/.conkyrc
 conky 2>/dev/null
 
 # Remove the temporary template file
-rm $CACHE_DIRECTORY/conkyrc
+rm $CACHE_DIRECTORY/conky.conf
 
 echo
 echo " Done!"
