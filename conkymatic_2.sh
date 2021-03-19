@@ -899,7 +899,7 @@ sed -i -e "s|_VAR:COLOR_PALETTE_FILEPATH_|${CACHE_DIRECTORY}/${COLOR_PALETTE_IMG
 
 #echo
 #echo " Shutting down Conky"
-pkill conky
+#pkill conky
 
 #echo
 #echo " Exporting new conky.conf file"
@@ -910,7 +910,7 @@ cp $CACHE_DIRECTORY/conky.conf ~/.config/conky/conky.conf
 # Launch conky
 #echo
 #echo " Relaunching Conky"
-conky 2>/dev/null
+#conky 2>/dev/null
 
 # Remove the temporary template file
 rm $CACHE_DIRECTORY/conky.conf
