@@ -676,9 +676,9 @@ COLOR16=$(echo "$COLOR16" | sed 's/.*[[:space:]]\(#[a-zA-Z0-9]\+\)[[:space:]].*/
 COLARRAY[16]="${COLOR16:0:7}"
 
 ALPARRAY[1]="0"
-ALPARRAY[2]="30"
-ALPARRAY[3]="80"
-ALPARRAY[4]="160"
+ALPARRAY[2]="31"
+ALPARRAY[3]="63"
+ALPARRAY[4]="127"
 ALPARRAY[5]="255"
 
 # Delete micro image
@@ -698,7 +698,7 @@ RND=$(shuf -i 1-3 -n 1)
 COLOR_BACKGROUND="${COLARRAY[${RND}]}"
 
 # Border color. Colors 5-13
-RND=$(shuf -i 5-13 -n 1)
+RND=$(shuf -i 12-16 -n 1)
 COLOR_BORDER="${COLARRAY[${RND}]}"
 
 # Weather icon color. Colors 12-16
@@ -729,7 +729,7 @@ COLOR_DATE="${COLARRAY[${RND}]}"
 RND=$(shuf -i 12-16 -n 1)
 COLOR_WEATHER="${COLARRAY[${RND}]}"
 
-# Headings. Colors 9-16
+# Headings. Colors 14-16
 RND=$(shuf -i 14-16 -n 1)
 COLOR_HEADING="${COLARRAY[${RND}]}"
 
@@ -737,12 +737,12 @@ COLOR_HEADING="${COLARRAY[${RND}]}"
 RND=$(shuf -i 10-16 -n 1)
 COLOR_SUBHEADING="${COLARRAY[${RND}]}"
 
-# Data values. Colors 8-16
+# Data values. Colors 11-16
 RND=$(shuf -i 11-16 -n 1)
 COLOR_DATA="${COLARRAY[${RND}]}"
 
-# Color text. Colors 8-16
-RND=$(shuf -i 8-16 -n 1)
+# Color text. Colors 12-16
+RND=$(shuf -i 12-16 -n 1)
 COLOR_TEXT="${COLARRAY[${RND}]}"
 
 RND=$(shuf -i 1-5 -n 1)

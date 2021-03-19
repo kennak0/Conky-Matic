@@ -16,7 +16,7 @@ conky.config = {
     default_color = '#E5E9F0',
     default_outline_color = '#D8DEE9',
     default_shade_color = '#D8DEE9',
-    color1 = '#D8DEE9',
+    color5 = '#D8DEE9',
     double_buffer = true,
     draw_borders = false,
     draw_graph_borders = true,
@@ -53,19 +53,28 @@ conky.config = {
 
 -- CONKYMATIC VARIABLES -------------------------------------------------------------
 
-color1 = '_VAR:COLOR_TEXT_', -- Text (extra. Not used in default template)
+color0 = '_VAR:COLOR_TIME_', -- Time
+color1 = '_VAR:COLOR_DATE_', -- Date
+color2 = '_VAR:COLOR_WEATHER_', -- Weather
+color3 = '_VAR:COLOR_HEADING_', -- Headings
+color4 = '_VAR:COLOR_SUBHEADING_', -- Sub-headings
+color5 = '_VAR:COLOR_TEXT_', -- Text (extra. Not used in default template)
+color6 = '_VAR:COLOR_DATA_', -- Data values
 color7 = '_VAR:COLOR_HR_', -- Horizontal rules
+color8 = '_VAR:COLOR_BARS_NORM_', -- Data bars, normal state
+color9 = '_VAR:COLOR_BARS_WARN_', -- Data bars, warning state
 default_color = '_VAR:COLOR_BORDER_', -- Window border
 default_outline_color = '_VAR:COLOR_BORDER_', -- Window border
 own_window_colour = '_VAR:COLOR_BACKGROUND_', -- Window background color
 own_window_argb_value = _VAR:COLOR_ALPHA_BACKGROUND_, -- Window background alpha color
+
 }
 
 conky.text = [[
 ${color7}${font ConkySymbols:size=20}t${font} ${voffset -10}GNU/Linux» $hr ${color}
 
-${color1}${goto 35}OS     : ${color}${execi 86400 cat `ls -atr /etc/*-release | tail -10` | grep "PRETTY_NAME" | cut -d= -f2 |  sed 's/"//g'}
-${color1}${goto 35}Kernel : ${color}$kernel on $machine
+${color5}${goto 35}OS     : ${color}${execi 86400 cat `ls -atr /etc/*-release | tail -10` | grep "PRETTY_NAME" | cut -d= -f2 |  sed 's/"//g'}
+${color5}${goto 35}Kernel : ${color}$kernel on $machine
 
 # -----------------------------------------------------------------------------------------
 # HORIZONTAL RULE
@@ -74,74 +83,78 @@ ${color7}${font ConkySymbols:size=16}f${font} ${voffset -10} System» $hr${color
 
 ${font}${goto 35}${execi 3600 grep model /proc/cpuinfo | cut -d : -f2 | tail -1 | sed 's/\s//'} ${alignr} ${cpu cpu0}%
 
-${color1}${goto 35}CPU Temperature: $color${acpitemp}°C
-${color1}${goto 35}CPU Usage:$color $cpu% ${cpubar}
+${color5}${goto 35}CPU Temperature: ${color}${acpitemp}°C
+${color5}${goto 35}CPU Usage:${color} $cpu% ${cpubar}
 
-${color1}${goto 35}Core 0 : ${color}${freq_g 1}GHz ${cpu cpu0}% ${alignr} ${color1}Core 1 : ${color}${freq_g 2}GHz ${cpu cpu1}%
-${color1}${goto 35}${cpugraph cpu1, 50, 300 8FBCBB BF616A -t}${alignr}${cpugraph cpu2, 50, 300 8FBCBB BF616A -t}
-${color1}${goto 35}Core 2 : ${color}${freq_g 1}GHz ${cpu cpu2}% ${alignr} ${color1}Core 3 : ${color}${freq_g 2}GHz ${cpu cpu3}%
-${color1}${goto 35}${cpugraph cpu3, 50, 300 8FBCBB BF616A -t}${alignr}${cpugraph cpu4, 50, 300 8FBCBB BF616A -t}
-${color1}${goto 35}Core 4 : ${color}${freq_g 1}GHz ${cpu cpu4}% ${alignr} ${color1}Core 5 : ${color}${freq_g 2}GHz ${cpu cpu5}%
-${color1}${goto 35}${cpugraph cpu5, 50, 300 8FBCBB BF616A -t}${alignr}${cpugraph cpu6, 50, 300 8FBCBB BF616A -t}
-${color1}${goto 35}Core 6 : ${color}${freq_g 1}GHz ${cpu cpu6}% ${alignr} ${color1}Core 7 : ${color}${freq_g 2}GHz ${cpu cpu7}%
-${color1}${goto 35}${cpugraph cpu7, 50, 300 8FBCBB BF616A -t}${alignr}${cpugraph cpu8, 50, 300 8FBCBB BF616A -t}
-${color1}${goto 35}Core 8 : ${color}${freq_g 1}GHz ${cpu cpu8}% ${alignr} ${color1}Core 9 : ${color}${freq_g 2}GHz ${cpu cpu9}%
-${color1}${goto 35}${cpugraph cpu9, 50, 300 8FBCBB BF616A -t}${alignr}${cpugraph cpu10, 50, 300 8FBCBB BF616A -t}
-${color1}${goto 35}Core 10 : ${color}${freq_g 1}GHz ${cpu cpu10}% ${alignr} ${color1}Core 11 : ${color}${freq_g 2}GHz ${cpu cpu11}%
-${color1}${goto 35}${cpugraph cpu11, 50, 300 8FBCBB BF616A -t}${alignr}${cpugraph cpu12, 50, 300 8FBCBB BF616A -t}
+${color5}${goto 35}Core 0 : ${color}${freq_g 1}GHz ${cpu cpu0}% ${alignr} ${color5}Core 1 : ${color}${freq_g 2}GHz ${cpu cpu1}%
+${color5}${goto 35}${cpugraph cpu1, 50, 300 8FBCBB BF616A -t}${alignr}${cpugraph cpu2, 50, 300 8FBCBB BF616A -t}
+${color5}${goto 35}Core 2 : ${color}${freq_g 1}GHz ${cpu cpu2}% ${alignr} ${color5}Core 3 : ${color}${freq_g 2}GHz ${cpu cpu3}%
+${color5}${goto 35}${cpugraph cpu3, 50, 300 8FBCBB BF616A -t}${alignr}${cpugraph cpu4, 50, 300 8FBCBB BF616A -t}
+${color5}${goto 35}Core 4 : ${color}${freq_g 1}GHz ${cpu cpu4}% ${alignr} ${color5}Core 5 : ${color}${freq_g 2}GHz ${cpu cpu5}%
+${color5}${goto 35}${cpugraph cpu5, 50, 300 8FBCBB BF616A -t}${alignr}${cpugraph cpu6, 50, 300 8FBCBB BF616A -t}
+${color5}${goto 35}Core 6 : ${color}${freq_g 1}GHz ${cpu cpu6}% ${alignr} ${color5}Core 7 : ${color}${freq_g 2}GHz ${cpu cpu7}%
+${color5}${goto 35}${cpugraph cpu7, 50, 300 8FBCBB BF616A -t}${alignr}${cpugraph cpu8, 50, 300 8FBCBB BF616A -t}
+${color5}${goto 35}Core 8 : ${color}${freq_g 1}GHz ${cpu cpu8}% ${alignr} ${color5}Core 9 : ${color}${freq_g 2}GHz ${cpu cpu9}%
+${color5}${goto 35}${cpugraph cpu9, 50, 300 8FBCBB BF616A -t}${alignr}${cpugraph cpu10, 50, 300 8FBCBB BF616A -t}
+${color5}${goto 35}Core 10 : ${color}${freq_g 1}GHz ${cpu cpu10}% ${alignr} ${color5}Core 11 : ${color}${freq_g 2}GHz ${cpu cpu11}%
+${color5}${goto 35}${cpugraph cpu11, 50, 300 8FBCBB BF616A -t}${alignr}${cpugraph cpu12, 50, 300 8FBCBB BF616A -t}
 
-${color1}${goto 35}Uptime : ${color}$uptime_short${alignr}${color1}Load  : ${color}${loadavg}
+${color5}${goto 35}Uptime : ${color}$uptime_short${alignr}${color5}Load  : ${color}${loadavg}
 
 # -----------------------------------------------------------------------------------------
 # HORIZONTAL RULE
 ${color7}${font ConkySymbols:size=16}h${font} ${voffset -10} Temperature» $hr${color}
 # -----------------------------------------------------------------------------------------
 
-${color1}${goto 35}CPU : ${color}${exec sensors | grep 'temp1' | awk 'NR==1{print $2}'} ${alignr}${color1}GPU : ${color}${exec sensors | grep 'temp1' | awk 'NR==2{print $2}'}
+${color5}${goto 35}CPU : ${color}${exec sensors | grep 'temp1' | awk 'NR==1{print $2}'} ${alignr}${color5}GPU : ${color}${exec sensors | grep 'temp1' | awk 'NR==2{print $2}'}
 
-${color1}${font ConkySymbols:size=16}J${font} ${voffset -10}Memory» $hr${color}
-${color1}${goto 35}RAM : ${color}$mem/$memmax ${alignr}$memperc% ${membar 4,100}
-${color1}${goto 35}SWAP: ${color}$swap/$swapmax $alignr}$swapperc% ${swapbar 4,100}
+# -----------------------------------------------------------------------------------------
+# HORIZONTAL RULE
+${color7}${font ConkySymbols:size=16}J${font} ${voffset -10}Memory» $hr${color}
+# -----------------------------------------------------------------------------------------
+
+${color5}${goto 35}RAM : ${color}$mem/$memmax ${alignr}$memperc% ${membar 4,100}
+${color5}${goto 35}SWAP: ${color}$swap/$swapmax $alignr}$swapperc% ${swapbar 4,100}
 
 # -----------------------------------------------------------------------------------------
 # HORIZONTAL RULE
 ${color7}${font ConkySymbols:size=16}n${font} ${voffset -10} Processes» $hr${color}
 # -----------------------------------------------------------------------------------------
 
-${color1}${goto 35}CPU usage ${alignr}Memory Usage${color}
-${color1}${goto 35}${stippled_hr}${color}
-${goto 35}${top name 1} ${color}${top cpu 1}% ${alignr}${top_mem name 1}${top_mem mem_res 1}
-${goto 35}${top name 2} ${color}${top cpu 2}% ${alignr}${top_mem name 2}${top_mem mem_res 2}
-${goto 35}${top name 3} ${color}${top cpu 3}% ${alignr}${top_mem name 3}${top_mem mem_res 3}
-${goto 35}${top name 4} ${color}${top cpu 4}% ${alignr}${top_mem name 4}${top_mem mem_res 4}
-${goto 35}${top name 5} ${color}${top cpu 5}% ${alignr}${top_mem name 5}${top_mem mem_res 5}
+${color5}${goto 35}CPU usage ${alignr}Memory Usage${color}
+${color5}${goto 35}${stippled_hr}${color}
+${color5}${goto 35}${top name 1} ${color}${top cpu 1}% ${alignr}${color5}${top_mem name 1}${color}${top_mem mem_res 1}
+${color5}${goto 35}${top name 2} ${color}${top cpu 2}% ${alignr}${color5}${top_mem name 2}${color}${top_mem mem_res 2}
+${color5}${goto 35}${top name 3} ${color}${top cpu 3}% ${alignr}${color5}${top_mem name 3}${color}${top_mem mem_res 3}
+${color5}${goto 35}${top name 4} ${color}${top cpu 4}% ${alignr}${color5}${top_mem name 4}${color}${top_mem mem_res 4}
+${color5}${goto 35}${top name 5} ${color}${top cpu 5}% ${alignr}${color5}${top_mem name 5}${color}${top_mem mem_res 5}
 
-${color1}${goto 35}Processes: ${color}$processes ${color1}Running: ${color}$running_processes
+${color5}${goto 35}Processes: ${color}$processes ${color5}Running: ${color}$running_processes
 
 # -----------------------------------------------------------------------------------------
 # HORIZONTAL RULE
 ${color7}${font ConkySymbols:size=16}k${font} ${voffset -10} Storage» $hr${color}
 # -----------------------------------------------------------------------------------------
 
-${color1}${goto 35}ROOT : ${color}${fs_used /}/${fs_size /} ${alignr}${fs_used_perc /}% ${fs_bar 4,100 /}
-${color1}${goto 35}DISK I/O:${color} ${alignr}$diskio
+${color5}${goto 35}ROOT : ${color}${fs_used /}/${fs_size /} ${alignr}${fs_used_perc /}% ${fs_bar 4,100 /}
+${color5}${goto 35}DISK I/O:${color} ${alignr}$diskio
 
-${color1}${goto 35}Read: ${diskio_read} ${alignr}Write: ${diskio_write}
-${color1}${goto 35}${diskiograph_read 50,300 A3BE8C 8FBCBB 750}${alignr}${diskiograph_write 50,300 B48EAD BF616A 750}
+${color5}${goto 35}Read: ${diskio_read} ${alignr}Write: ${diskio_write}
+${color5}${goto 35}${diskiograph_read 50,300 A3BE8C 8FBCBB 750}${alignr}${diskiograph_write 50,300 B48EAD BF616A 750}
 
 # -----------------------------------------------------------------------------------------
 # HORIZONTAL RULE
 ${color7}${font ConkySymbols:size=16}b${font} ${voffset -10} Wireless» $hr${color}
 # -----------------------------------------------------------------------------------------
 
-${color1}${goto 35}SSID          : ${color}${wireless_essid wlan0} ${color1}${alignr}Signal: ${color}${wireless_link_qual_perc wlan0}% ${wireless_link_bar 4,100 wlan0}
-${color1}${goto 35}Bitrate       : ${color}${wireless_bitrate wlan0}
-${color1}${goto 35}Total Down/Up : ${color}${totaldown wlan0}/${totalup wlan0} 
-${color1}${goto 35}Speed Down/Up : ${color}${downspeed wlan0}/${upspeed wlan0}
+${color5}${goto 35}SSID          : ${color}${wireless_essid wlan0} ${color5}${alignr}Signal: ${color}${wireless_link_qual_perc wlan0}% ${wireless_link_bar 4,100 wlan0}
+${color5}${goto 35}Bitrate       : ${color}${wireless_bitrate wlan0}
+${color5}${goto 35}Total Down/Up : ${color}${totaldown wlan0}/${totalup wlan0} 
+${color5}${goto 35}Speed Down/Up : ${color}${downspeed wlan0}/${upspeed wlan0}
 
-${color1}${goto 35}IP ADDRESS:${color} ${alignr}${addr wlan0}
+${color5}${goto 35}IP ADDRESS:${color} ${alignr}${addr wlan0}
 ${goto 35}${if_match "${addr wlan0}"!="No Address"}${voffset 5}Download ${downspeedf wlan0}k/s (${totaldown wlan0}) ${alignr} Upload ${alignr}${upspeedf wlan0}k/s (${totalup wlan0})
-${color1}${goto 35}${downspeedgraph wlan0 50,300 A3BE8C 8FBCBB -t}${alignr}${upspeedgraph wlan0 50,300 B48EAD BF616A -t}
+${color5}${goto 35}${downspeedgraph wlan0 50,300 A3BE8C 8FBCBB -t}${alignr}${upspeedgraph wlan0 50,300 B48EAD BF616A -t}
 
 # -----------------------------------------------------------------------------------------
 # HORIZONTAL RULE
@@ -150,5 +163,5 @@ ${voffset -2}${color7}${hr 2}
 
 # COLOR PALETTE IMAGE
 # Note: Vertical offset controls the space UNDER the image.
-${goto 35}${image _VAR:COLOR_PALETTE_FILEPATH_ -p 350,2250}\
+${goto 35}${image _VAR:COLOR_PALETTE_FILEPATH_ -p 350,2270}\
 ]]
